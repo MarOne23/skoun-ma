@@ -27,7 +27,9 @@ export default async function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/">
-            <img src="/images/logo-skoun.png" alt="Skoun.ma" className="h-10 w-auto" />
+            <div className="bg-white rounded-xl px-3 py-1.5 shadow-sm">
+              <img src="/images/logo-skoun.png" alt="Skoun.ma" className="h-10 w-auto" style={{ objectFit: 'contain' }} />
+            </div>
           </Link>
 
           {/* Nav + auth — client island for interactivity */}
