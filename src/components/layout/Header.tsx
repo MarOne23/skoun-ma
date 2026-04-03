@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { MapPin } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import HeaderClient from './HeaderClient'
 
@@ -28,9 +27,7 @@ export default async function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <MapPin className="w-4 h-4 text-accent fill-accent" />
-            </div>
+            <img src="/images/morocco-map.svg" alt="Maroc" className="h-6 w-auto" />
             <span className="text-xl font-extrabold text-primary tracking-tight">
               Skoun<span className="text-accent">.ma</span>
             </span>

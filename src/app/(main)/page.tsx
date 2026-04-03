@@ -37,9 +37,9 @@ export default function HomePage() {
           <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #D4A853 0%, transparent 50%), radial-gradient(circle at 80% 20%, #2D6A4F 0%, transparent 50%)" }} />
         </div>
         <div className="relative max-w-5xl mx-auto px-4 pt-20 pb-24 text-center">
-          <span className="inline-block bg-accent/20 text-accent text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-accent/30">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-white/90 text-sm mb-6">
             N°1 de l&apos;immobilier marocain en ligne
-          </span>
+          </div>
           <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
             Skoun <span style={{ color: '#D4A853' }}>f&apos;dar</span> kima bghiti
           </h1>
