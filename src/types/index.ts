@@ -1,10 +1,14 @@
+/** Property type — what kind of real estate */
 export type Category =
-  | 'vente'
-  | 'location'
-  | 'location-estivale'
-  | 'colocation'
+  | 'appartement'
+  | 'villa'
+  | 'studio'
   | 'commercial'
-  | 'projets-neufs'
+  | 'terrain'
+  | 'autre'
+
+/** Whether the listing is for sale or rent */
+export type TransactionType = 'vente' | 'location'
 
 export type Listing = {
   id: string
@@ -12,7 +16,7 @@ export type Listing = {
   title: string
   description: string | null
   category: Category
-  transaction_type: string
+  transaction_type: TransactionType
   price: number | null
   city: string
   neighborhood: string | null
@@ -34,7 +38,7 @@ export interface Profile {
 export interface SearchFilters {
   city?: string
   category?: Category
-  transaction_type?: string
+  transaction_type?: TransactionType
   minPrice?: number
   maxPrice?: number
   rooms?: number

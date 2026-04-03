@@ -3,54 +3,56 @@ import { PlusCircle, Home } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import ListingGrid from '@/components/listings/ListingGrid'
 import FilterBar from '@/components/listings/FilterBar'
-import type { Category, Listing } from '@/types'
+import type { Listing } from '@/types'
 import { Suspense } from 'react'
+
+const TEMP_USER_ID = '00000000-0000-0000-0000-000000000001'
 
 const SEED_LISTINGS = [
   {
-    title: 'Appartement 3 pièces lumineux — Maarif',
+    user_id: TEMP_USER_ID,
+    title: 'Bel appartement 3 pièces — Maarif',
     description:
-      'Bel appartement de 3 pièces au cœur du Maarif. Lumineux, bien agencé, proche de toutes commodités. Idéal pour une famille ou des professionnels.',
-    category: 'vente' as Category,
+      'Appartement lumineux de 95m² au cœur du Maarif. Séjour spacieux, 2 chambres, cuisine équipée, balcon. Résidence sécurisée avec gardien. Idéal famille ou investissement.',
+    category: 'appartement',
     transaction_type: 'vente',
-    price: 1_450_000,
+    price: 1_200_000,
     city: 'Casablanca',
     neighborhood: 'Maarif',
-    surface_m2: 115,
+    surface_m2: 95,
     rooms: 3,
     photos: [],
     status: 'active',
-    user_id: '00000000-0000-0000-0000-000000000001',
   },
   {
-    title: 'Villa moderne avec piscine — Hivernage',
+    user_id: TEMP_USER_ID,
+    title: 'Villa standing avec jardin — Palmeraie',
     description:
-      'Splendide villa de standing avec piscine privée dans le quartier prisé de l\'Hivernage. Prestations haut de gamme, jardin paysager, garage.',
-    category: 'location' as Category,
-    transaction_type: 'location',
-    price: 28_000,
+      'Splendide villa de 280m² dans la prestigieuse Palmeraie. 4 suites parentales, piscine à débordement, jardin paysager de 800m², salle de cinéma, domotique intégrée.',
+    category: 'villa',
+    transaction_type: 'vente',
+    price: 4_500_000,
     city: 'Marrakech',
-    neighborhood: 'Hivernage',
-    surface_m2: 320,
+    neighborhood: 'Palmeraie',
+    surface_m2: 280,
     rooms: 5,
     photos: [],
     status: 'active',
-    user_id: '00000000-0000-0000-0000-000000000001',
   },
   {
+    user_id: TEMP_USER_ID,
     title: 'Studio meublé tout équipé — Agdal',
     description:
-      'Studio moderne entièrement meublé et équipé dans le quartier calme de l\'Agdal. Parfait pour étudiant ou jeune actif. Charges comprises.',
-    category: 'location' as Category,
+      'Studio moderne de 35m², entièrement meublé et équipé. Cuisine ouverte, lit escamotable, fibre optique incluse. Proche universités et transports. Charges comprises.',
+    category: 'studio',
     transaction_type: 'location',
     price: 4_500,
     city: 'Rabat',
     neighborhood: 'Agdal',
-    surface_m2: 38,
+    surface_m2: 35,
     rooms: 1,
     photos: [],
     status: 'active',
-    user_id: '00000000-0000-0000-0000-000000000001',
   },
 ]
 
@@ -59,7 +61,6 @@ async function seedIfEmpty(supabase: Awaited<ReturnType<typeof createClient>>) {
     const { count } = await supabase
       .from('listings')
       .select('*', { count: 'exact', head: true })
-
     if (count === 0) {
       await supabase.from('listings').insert(SEED_LISTINGS)
     }
@@ -79,15 +80,9 @@ async function getListings(
       .eq('status', 'active')
       .order('created_at', { ascending: false })
 
-    if (filters.ville) {
-      query = query.ilike('city', `%${filters.ville}%`)
-    }
-    if (filters.category) {
-      query = query.eq('category', filters.category)
-    }
-    if (filters.type) {
-      query = query.eq('transaction_type', filters.type)
-    }
+    if (filters.ville) query = query.ilike('city', `%${filters.ville}%`)
+    if (filters.category) query = query.eq('category', filters.category)
+    if (filters.type) query = query.eq('transaction_type', filters.type)
 
     const { data, error } = await query
     if (error) return []
@@ -95,11 +90,6 @@ async function getListings(
   } catch {
     return []
   }
-}
-
-// Async wrapper to allow Suspense boundary around FilterBar
-function FilterBarWrapper() {
-  return <FilterBar />
 }
 
 export default async function AnnoncesPage({
@@ -117,7 +107,6 @@ export default async function AnnoncesPage({
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Page header */}
       <div className="bg-primary">
         <div className="max-w-6xl mx-auto px-4 pt-10 pb-12">
           <h1 className="text-3xl font-bold text-white mb-1">
@@ -128,15 +117,12 @@ export default async function AnnoncesPage({
               ? `${listings.length} annonce${listings.length > 1 ? 's' : ''} disponible${listings.length > 1 ? 's' : ''}`
               : 'Trouvez votre bien au Maroc'}
           </p>
-
-          {/* Filter bar — needs Suspense because useSearchParams inside */}
           <Suspense fallback={<div className="h-16 bg-white/10 rounded-2xl animate-pulse" />}>
-            <FilterBarWrapper />
+            <FilterBar />
           </Suspense>
         </div>
       </div>
 
-      {/* Content */}
       <div className="max-w-6xl mx-auto px-4 py-10">
         {listings.length > 0 ? (
           <ListingGrid listings={listings} />
@@ -155,11 +141,11 @@ function EmptyState({ hasFilters }: { hasFilters: boolean }) {
         <Home className="w-9 h-9 text-primary/40" />
       </div>
       <h2 className="text-xl font-bold text-foreground mb-2">
-        {hasFilters ? 'Aucune annonce trouvée' : 'Aucune annonce disponible pour le moment'}
+        {hasFilters ? 'Aucune annonce trouvée' : 'Aucune annonce pour le moment'}
       </h2>
       <p className="text-gray-400 text-sm max-w-sm mb-8">
         {hasFilters
-          ? 'Essayez de modifier vos filtres pour voir plus de résultats.'
+          ? 'Modifiez vos filtres pour voir plus de résultats.'
           : 'Soyez le premier à publier une annonce sur Skoun.ma.'}
       </p>
       <div className="flex flex-col sm:flex-row gap-3">

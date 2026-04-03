@@ -38,12 +38,10 @@ export default function HomePage() {
         </div>
         <div className="relative max-w-5xl mx-auto px-4 pt-20 pb-24 text-center">
           <span className="inline-block bg-accent/20 text-accent text-sm font-semibold px-4 py-1.5 rounded-full mb-6 border border-accent/30">
-            🇲🇦 N°1 de l&apos;immobilier marocain en ligne
+            N°1 de l&apos;immobilier marocain en ligne
           </span>
           <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
-            Trouvez votre{" "}
-            <span className="text-accent">chez-vous</span>
-            {" "}au Maroc
+            Skoun <span style={{ color: '#D4A853' }}>f&apos;dar</span> kima bghiti
           </h1>
           <p className="text-white/70 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
             Des milliers d&apos;annonces gratuites, sans frais d&apos;agence.

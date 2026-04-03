@@ -4,20 +4,20 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { Search, SlidersHorizontal } from 'lucide-react'
 
-const CATEGORIES = [
-  { value: '', label: 'Toutes catégories' },
-  { value: 'vente', label: 'Vente' },
-  { value: 'location', label: 'Location' },
-  { value: 'location-estivale', label: 'Location Estivale' },
-  { value: 'colocation', label: 'Colocation' },
-  { value: 'commercial', label: 'Locaux Commerciaux' },
-  { value: 'projets-neufs', label: 'Projets Neufs' },
+const PROPERTY_TYPES = [
+  { value: '', label: 'Tous types de biens' },
+  { value: 'appartement', label: 'Appartement' },
+  { value: 'villa', label: 'Villa' },
+  { value: 'studio', label: 'Studio' },
+  { value: 'commercial', label: 'Local Commercial' },
+  { value: 'terrain', label: 'Terrain' },
+  { value: 'autre', label: 'Autre' },
 ]
 
 const TRANSACTION_TYPES = [
   { value: '', label: 'Vente & Location' },
-  { value: 'vente', label: 'Vente uniquement' },
-  { value: 'location', label: 'Location uniquement' },
+  { value: 'vente', label: 'Vente' },
+  { value: 'location', label: 'Location' },
 ]
 
 export default function FilterBar() {
@@ -55,7 +55,7 @@ export default function FilterBar() {
           />
         </div>
 
-        {/* Category */}
+        {/* Property type */}
         <div className="flex items-center gap-2 border border-gray-200 rounded-xl px-4 py-2.5 sm:w-52 focus-within:border-primary/50 transition-all">
           <SlidersHorizontal className="w-4 h-4 text-gray-400 flex-shrink-0" />
           <select
@@ -63,13 +63,13 @@ export default function FilterBar() {
             onChange={(e) => setCategory(e.target.value)}
             className="flex-1 text-sm text-gray-700 bg-transparent outline-none cursor-pointer"
           >
-            {CATEGORIES.map((c) => (
+            {PROPERTY_TYPES.map((c) => (
               <option key={c.value} value={c.value}>{c.label}</option>
             ))}
           </select>
         </div>
 
-        {/* Transaction type */}
+        {/* Vente / Location toggle */}
         <div className="flex gap-1 border border-gray-200 rounded-xl p-1 bg-gray-50">
           {TRANSACTION_TYPES.map((t) => (
             <button
@@ -86,7 +86,6 @@ export default function FilterBar() {
           ))}
         </div>
 
-        {/* Search button */}
         <button
           onClick={applyFilters}
           disabled={isPending}
