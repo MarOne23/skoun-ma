@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Home } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import HeaderClient from './HeaderClient'
 
@@ -26,10 +27,13 @@ export default async function Header() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/">
-            <div className="bg-white rounded-xl px-3 py-1.5 shadow-sm">
-              <img src="/images/logo-skoun.png" alt="Skoun.ma" className="h-10 w-auto" style={{ objectFit: 'contain' }} />
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#1B4332' }}>
+              <Home size={20} style={{ color: '#D4A853' }} />
             </div>
+            <span className="text-xl font-bold" style={{ color: '#1B4332' }}>
+              Skoun<span style={{ color: '#D4A853' }}>.ma</span>
+            </span>
           </Link>
 
           {/* Nav + auth — client island for interactivity */}

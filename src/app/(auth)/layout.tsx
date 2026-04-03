@@ -1,13 +1,18 @@
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { Home, ArrowLeft } from 'lucide-react'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Top bar */}
       <div className="w-full px-6 py-4 flex items-center justify-between">
-        <Link href="/">
-          <img src="/images/logo-skoun.png" alt="Skoun.ma" className="h-10 w-auto" />
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#1B4332' }}>
+            <Home size={20} style={{ color: '#D4A853' }} />
+          </div>
+          <span className="text-xl font-bold" style={{ color: '#1B4332' }}>
+            Skoun<span style={{ color: '#D4A853' }}>.ma</span>
+          </span>
         </Link>
         <Link
           href="/"
