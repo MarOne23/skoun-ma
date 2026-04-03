@@ -26,11 +26,8 @@ export default async function Header() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <img src="/images/morocco-map.svg" alt="Maroc" className="h-6 w-auto" />
-            <span className="text-xl font-extrabold text-primary tracking-tight">
-              Skoun<span className="text-accent">.ma</span>
-            </span>
+          <Link href="/">
+            <img src="/images/logo-skoun.png" alt="Skoun.ma" className="h-10 w-auto" />
           </Link>
 
           {/* Nav + auth — client island for interactivity */}

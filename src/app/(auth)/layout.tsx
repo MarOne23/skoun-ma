@@ -1,18 +1,13 @@
 import Link from 'next/link'
-import { MapPin, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Top bar */}
       <div className="w-full px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <MapPin className="w-4 h-4 text-accent fill-accent" />
-          </div>
-          <span className="text-xl font-extrabold text-primary tracking-tight">
-            Skoun<span className="text-accent">.ma</span>
-          </span>
+        <Link href="/">
+          <img src="/images/logo-skoun.png" alt="Skoun.ma" className="h-10 w-auto" />
         </Link>
         <Link
           href="/"
